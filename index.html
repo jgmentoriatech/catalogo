@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JG Mentoria Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --cream: #ede8dc;
+    --brand-green: #89977c;
+    --warm: #e4ddd0;
+    --borda: #cfc8b8;
+    --cinza: #7a7570;
+    --verde: #6a9163;
+    --verde-bg: #eaf2e8;
+    --verde-mid: #c2d9be;
+    --verde-dark: #4e7248;
+    --vermelho: #8b2020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    padding-top: 60px;
+  }
+
+  /* HEADER FIXO */
+  .main-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background-color: rgba(237, 232, 220, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--borda);
+    z-index: 2000; padding: 0.75rem 0;
+    transition: all 0.3s ease;
+  }
+  .header-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .header-logo { height: 40px; width: auto; }
+  .header-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; color: var(--ink); }
+  .header-right ul { display: flex; gap: 1.5rem; list-style: none; }
+  .header-right a { text-decoration: none; color: var(--cinza); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .header-right a:hover { color: var(--verde-dark); }
+
+  /* HERO EM TELA CHEIA */
+  .hero {
+    background: var(--ink); 
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 80px 32px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 55% at 50% 65%, #2e3a2a 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(106,145,99,0.15);
+    top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+  }
+  .r1 { width: 420px; height: 420px; }
+  .r2 { width: 680px; height: 680px; }
+  .r3 { width: 980px; height: 980px; }
+  .r4 { width: 1340px; height: 1340px; }
+
+  .hero h1 {
+    position: relative; z-index: 2; font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 900; color: #fff;
+    line-height: 1; letter-spacing: -0.03em; margin-bottom: 24px;
+  }
+  .hero h1 em { font-style: italic; font-weight: 300; color: #7a9b72; }
+
+  .hero-desc {
+    position: relative; z-index: 2; max-width: 900px;
+    color: var(--verde-mid); font-weight: 600; font-size: 1.1rem;
+    line-height: 1.6; margin-bottom: 32px;
+  }
+  .aviso-local {
+    background-color: rgba(78, 114, 72, 0.85); border: 1px solid var(--verde-mid);
+    color: #fff; padding: 6px 16px; border-radius: 6px; display: inline-block;
+    margin-top: 16px; font-size: 0.95rem; font-weight: 500;
+  }
+
+  .hero-cta { position: relative; z-index: 2; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn-w {
+    background: var(--verde); color: #fff; font-weight: 600; font-size: 0.9rem;
+    padding: 14px 32px; border-radius: 100px; text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s; display: inline-block;
+  }
+  .btn-w:hover { opacity: 0.9; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.7); font-size: 0.9rem;
+    padding: 14px 32px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2);
+    text-decoration: none; transition: all 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+  /* SEÇÕES GERAIS E ALTERNÂNCIA DE CORES */
+  .secao { padding: 100px 40px; width: 100%; }
+  .inner { max-width: 1080px; margin: 0 auto; }
+  
+  .bg-cream { background-color: var(--cream); color: var(--ink); }
+  .bg-green { background-color: var(--brand-green); color: #fff; }
+  
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--verde-dark); font-weight: 700; margin-bottom: 12px; }
+  .h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; color: var(--ink); margin-bottom: 18px; }
+  .h2 em { font-style: italic; font-weight: 300; color: var(--verde); }
+  .lead { font-size: 1rem; line-height: 1.7; color: var(--cinza); max-width: 680px; margin-bottom: 48px; }
+
+  /* INSTRUTOR CENTRALIZADO */
+  .instrutor-section { text-align: center; }
+  .instrutor-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--cream); margin: 0 auto 20px; overflow: hidden; background: rgba(255,255,255,0.1); }
+  .inst-bloco { 
+    background: #fff; 
+    border: 1px solid var(--borda); 
+    border-radius: 20px; 
+    padding: 48px; 
+    max-width: 860px; 
+    margin: 0 auto; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    color: var(--ink); 
+    text-align: center; /* Alinhamento centralizado de todo o bloco */
+  }
+  .inst-bloco h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; margin-bottom: 4px; color: var(--ink); }
+  .inst-bloco .inst-prof { color: var(--verde-dark); font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
+  .inst-bloco p { text-align: center; line-height: 1.7; font-size: 0.95rem; }
+  .inst-tags { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+  .inst-tags span { background: var(--verde-bg); color: var(--verde-dark); padding: 8px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; }
+
+  /* PLANOS */
+  .pacotes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; align-items: start; }
+  .card { border-radius: 24px; overflow: hidden; border: 1px solid var(--borda); background: #fff; transition: transform 0.3s, box-shadow 0.3s; color: var(--ink); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 22px 56px rgba(0,0,0,0.09); }
+  .card-ativo { background: var(--ink); border-color: var(--ink); transform: scale(1.03); color: #fff; }
+  .card-ativo:hover { transform: scale(1.03) translateY(-6px); box-shadow: 0 28px 64px rgba(0,0,0,0.22); }
+  
+  .card-topo { padding: 34px 30px 26px; border-bottom: 1px solid var(--borda); position: relative; }
+  .card-ativo .card-topo { border-bottom-color: rgba(255,255,255,0.08); }
+  .card-perfil { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; color: var(--verde-dark); }
+  .card-ativo .card-perfil { color: rgba(255,255,255,0.4); }
+  .card-nome { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; line-height: 1; margin-bottom: 12px; color: var(--ink); }
+  .card-ativo .card-nome { color: #fff; }
+  .card-tagline { font-size: 0.85rem; line-height: 1.5; color: var(--cinza); margin-bottom: 24px; min-height: 60px; }
+  .card-ativo .card-tagline { color: rgba(255,255,255,0.7); }
+  
+  .card-preco { display: flex; align-items: baseline; gap: 4px; }
+  .p-cifrao { font-size: 1rem; font-weight: 600; color: var(--cinza); }
+  .card-ativo .p-cifrao { color: rgba(255,255,255,0.5); }
+  .p-valor { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900; line-height: 1; color: var(--ink); }
+  .card-ativo .p-valor { color: #fff; }
+  .p-per { font-size: 0.8rem; color: var(--cinza); }
+  .card-ativo .p-per { color: rgba(255,255,255,0.5); }
+
+  .badges-container { min-height: 24px; margin-bottom: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .desconto-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; background: var(--verde-bg); color: var(--verde-dark); }
+  .card-ativo .desconto-badge { background: rgba(255,255,255,0.1); color: #fff; }
+  .badge-escassez { background: var(--vermelho); color: #fff; }
+
+  .card-corpo { padding: 28px 30px 34px; }
+  .limites-box { display: flex; gap: 10px; margin-bottom: 24px; padding: 14px; border-radius: 12px; background: var(--verde-bg); text-align: center; }
+  .card-ativo .limites-box { background: rgba(255,255,255,0.05); }
+  .limites-box .lim { flex: 1; display: flex; flex-direction: column; justify-content: center; }  
+  .lim-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--cinza); }
+  .card-ativo .lim-label { color: rgba(255,255,255,0.4); }
+  .lim-val { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--verde-dark); }
+  .card-ativo .lim-val { color: var(--verde-mid); }
+
+  .card-itens { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+  .item-grupo { display: flex; flex-direction: column; gap: 6px; }
+  .item-titulo { font-size: 0.85rem; font-weight: 600; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; color: var(--ink); }
+  .card-ativo .item-titulo { color: #fff; }
+  .item-desc { font-size: 0.8rem; color: var(--cinza); line-height: 1.4; margin-left: 26px; }
+  .card-ativo .item-desc { color: rgba(255,255,255,0.7); }
+  
+  .alerta-box { margin-left: 26px; margin-top: 4px; display: flex; flex-direction: column; gap: 4px; }
+  .alerta-texto { font-size: 0.75rem; color: #b84b4b; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+  .check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--verde-mid); color: var(--verde-dark); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: bold; margin-top: 2px; }
+  .card-ativo .check { background: rgba(255,255,255,0.15); color: #fff; }
+
+  .sub-list { list-style: none; margin: 2px 0 0 26px; display: flex; flex-direction: column; gap: 6px; }
+  .sub-list li { font-size: 0.8rem; line-height: 1.4; color: var(--cinza); display: flex; gap: 6px; }
+  .card-ativo .sub-list li { color: rgba(255,255,255,0.7); }
+  .sub-list li::before { content: '·'; font-weight: bold; }
+
+  .btn-card { display: block; width: 100%; padding: 16px; border-radius: 12px; text-align: center; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: opacity 0.2s; background: var(--verde); color: #fff; }
+  .btn-card:hover { opacity: 0.9; }
+  .card-ativo .btn-card { background: #fff; color: var(--ink); }
+
+  /* CAIXAS DE REGRAS NA PRÁTICA E SERVIÇOS AVULSOS */
+  .alinha-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+  .serv-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .alinha-card { background: #fff; border: 1px solid var(--borda); border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); color: var(--ink); }
+  .alinha-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .alinha-card h4 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--ink); }
+  .alinha-card p { font-size: 0.85rem; color: var(--cinza); line-height: 1.6; }
+  .alinha-card p strong { color: var(--ink); }
+
+  /* TABELA COMPARATIVA COM BORDAS BRANCAS GROSSAS (2PX) */
+  .comp-table { 
+    width: 100%; 
+    border-collapse: separate; 
+    border-spacing: 0; 
+    margin-top: 40px; 
+    background: transparent; 
+  }
+  
+  /* Célula superior esquerda totalmente invisível e sem bordas */
+  .comp-table tr.super-header th:first-child,
+  .comp-table thead tr:not(.super-header) th:first-child {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Bordas brancas visíveis (2px) em todas as células da tabela */
+  .comp-table th, .comp-table td { 
+    border: 2px solid #fff; 
+    padding: 18px 20px; 
+    vertical-align: middle; 
+  }
+
+  /* Aplicação de cantos arredondados nos cabeçalhos superiores */
+  .comp-table tr.super-header .th-dominio {
+    background-color: var(--brand-green) !important;
+    color: #fff !important;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .comp-table tr.super-header .th-glossy {
+    background: linear-gradient(145deg, #242422, #0a0a09) !important;
+    color: #fff !important;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .super-header th {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8rem;
+    text-transform: uppercase; 
+    letter-spacing: 0.15em; 
+    font-weight: 700;
+    text-align: center; 
+  }
+
+  .comp-table thead tr:not(.super-header) th { 
+    font-family: 'Fraunces', serif; 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    text-align: center; 
+  }
+  
+  /* Coluna Plano Domínio inteiramente verde */
+  .comp-table thead tr:not(.super-header) th.th-dominio,
+  .comp-table tbody td.td-dominio {
+    background-color: var(--brand-green) !important;
+    color: #fff !important;
+    text-align: center;
+  }
+
+  /* Colunas Conexão e Premium inteiramente em Preto Brilhante (Glossy Gradient) */
+  .comp-table thead tr:not(.super-header) th.th-glossy,
+  .comp-table tbody td.td-glossy {
+    background: linear-gradient(145deg, #1f1f1c, #0d0d0c) !important;
+    color: #fff !important;
+    text-align: center;
+  }
+  
+  /* Coluna Inicial de Recursos preenchida a creme */
+  .comp-table tbody td:nth-child(1) { 
+    text-align: left; 
+    font-weight: 600; 
+    color: var(--ink); 
+    background-color: var(--cream) !important;
+    line-height: 1.6;
+    font-size: 0.85rem;
+  }
+
+  /* Arredondamento da primeira coluna e da última linha para harmonia do quadro */
+  .comp-table tbody tr:first-child td:nth-child(1) {
+    border-top-left-radius: 20px;
+  }
+  .comp-table tbody tr:last-child td:nth-child(1) {
+    border-bottom-left-radius: 20px;
+  }
+  .comp-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
+  }
+
+  /* Estilização de confirmações e alertas de alto contraste */
+  .sim { font-weight: bold; font-size: 1.2rem; color: #fff; }
+  .comp-table tbody td:nth-child(1) .sim { color: var(--verde-dark); }
+  
+  .nao { color: rgba(255, 255, 255, 0.3); font-weight: bold; }
+  
+  .detalhe-celula { display: block; font-size: 0.8rem; margin-top: 4px; font-weight: normal; color: inherit; opacity: 0.9; }
+  .comp-table tbody td:nth-child(1) .detalhe-celula { color: var(--cinza); opacity: 1; }
+  
+  .alerta-celula { display: block; font-size: 0.75rem; color: #ff6b6b; font-weight: 600; margin-top: 4px; text-align: center; }
+
+  /* FAQ */
+  .faq-box { display: flex; flex-direction: column; gap: 16px; margin: 40px auto 0; max-width: 800px; }
+  details { background: #fff; border: 1px solid var(--borda); border-radius: 16px; padding: 22px 26px; cursor: pointer; transition: background 0.2s; color: var(--ink); }
+  details:hover { background: #faf8f5; }
+  summary { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); outline: none; }
+  details p { font-size: 0.9rem; color: var(--cinza); line-height: 1.6; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--warm); text-align: left; }
+
+  /* BOTÃO PRETO RETANGULAR PARA ORÇAMENTO VIA WHATSAPP */
+  .btn-orcamento-preto {
+    background-color: var(--ink);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 16px 36px;
+    border-radius: 10px; /* Formato retangular padronizado */
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  .btn-orcamento-preto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 60px 40px; text-align: center; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.05); }
+  footer .ft { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  footer .inst { color: var(--verde-mid); font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
+
+  /* RESPONSIVIDADE */
+  @media (max-width: 960px) {
+    .alinha-grid, .serv-grid { grid-template-columns: repeat(2, 1fr); }
+    .pacotes-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .card-ativo { transform: none; }
+    .card-ativo:hover { transform: translateY(-6px); }
+  }
+  @media (max-width: 768px) {
+    .header-right { display: none; }
+    .header-container { justify-content: center; }
+    .alinha-grid, .serv-grid { grid-template-columns: 1fr; }
+    .secao { padding: 70px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="header-container">
+    <div class="header-left">
+      <img src="logo.webp" alt="Logo JG Mentoria Tech" class="header-logo">
+      <span class="header-title">JG Mentoria Tech</span>
+    </div>
+    <nav class="header-right">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#servicos-avulsos">Serviços Avulsos</a></li>
+        <li><a href="#comparativo">Visão Geral</a></li>
+        <li><a href="#instrutor">Instrutor</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+  <div class="ring r4"></div>
+  
+  <h1><em>A tecnologia a favor da sua rotina</em></h1>
+  
+  <p class="hero-desc">
+    Liberte-se da sobrecarga tecnológica e recupere o seu tempo livre.<br>
+    <span class="aviso-local">Atendimento presencial exclusivo para Novo Triunfo e região.</span>
+  </p>
+
+  <div class="hero-cta">
+    <a href="#planos" class="btn-w">Conhecer Planos</a>
+    <a href="#instrutor" class="btn-ghost">Conhecer o Instrutor</a>
+  </div>
+</section>
+
+<section class="secao bg-cream" id="planos">
+  <div class="inner">
+    <p class="eyebrow">Mentoria sob medida</p>
+    <h2 class="h2">Escolha o plano <em>ideal para a sua rotina</em></h2>
+    
+    <div class="pacotes-grid">
+      
+      <div class="card">
+        <div class="card-topo">
+          <p class="card-perfil">Público Geral</p>
+          <h3 class="card-nome">Plano Domínio</h3>
+          <p class="card-tagline">Focado em alfabetização digital e autonomia básica no computador. <strong>Não inclui suporte para ferramentas pedagógicas.</strong></p>
+          <div class="badges-container">
+            <span class="desconto-badge">Preço de Lançamento</span>
+          </div>
+          <div class="card-preco"><span class="p-cifrao">R$</span><span class="p-valor">85</span><span class="p-per">,00/mês</span></div>
+        </div>
+        <div class="card-corpo">
+          <div class="limites-box">
+            <div class="lim"><span class="lim-label">Plataforma</span><span class="lim-val">Classroom</span></div>
+            <div class="lim"><span class="lim-label">Presencial</span><span class="lim-val">Quinzenal · 1h</span></div>
+          </div>
+          
+          <div class="card-itens">
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Encontros presenciais quinzenais</span>
+              <ul class="sub-list">
+                <li>Aulas práticas em pequenos grupos</li>
+                <li>Fundamentos do computador e sistema</li>
+                <li>Navegação segura e gestão de arquivos</li>
+                <li>Criação de textos e documentos</li>
+                <li>Planilhas básicas e organização</li>
+              </ul>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Ambiente de Aprendizagem</span>
+              <p class="item-desc">Este espaço virtual é a nossa sala de aula estendida. É aqui que todos os conteúdos abordados nos nossos encontros presenciais ficarão centralizados.</p>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Atalhos Digitais</span>
+              <p class="item-desc">Aqui serão postadas pílulas de solução, conteúdos diretos ao ponto para facilitar a sua vida tecnológica em poucos minutos.</p>
+            </div>
+          </div>
+
+          <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=a740872168844eb49f02ea8bde6a5dff" class="btn-card" target="_blank" rel="noopener noreferrer">Assinar Plano Domínio</a>
+        </div>
+      </div>
+
+      <div class="card card-ativo">
+        <div class="card-topo">
+          <p class="card-perfil">Público Educacional</p>
+          <h3 class="card-nome">Plano Conexão</h3>
+          <p class="card-tagline">Suporte direto e ferramentas ágeis para a sua rotina educacional. Destrave o seu dia a dia com orientações rápidas e ganhe tempo livre aplicando a tecnologia de forma inteligente.</p>
+          <div class="badges-container">
+            <span class="desconto-badge">Preço de Lançamento</span>
+          </div>
+          <div class="card-preco"><span class="p-cifrao">R$</span><span class="p-valor">120</span><span class="p-per">,00/mês</span></div>
+        </div>
+        <div class="card-corpo">
+          <div class="limites-box">
+            <div class="lim"><span class="lim-val" style="color: #fff;">Socorro Digital</span></div>
+            <div class="lim"><span class="lim-label">Presencial</span><span class="lim-val" style="color: #fff;">Quinzenal · 1h</span></div>
+          </div>
+          
+          <div class="card-itens">
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Encontros presenciais quinzenais</span>
+              <ul class="sub-list">
+                <li>Informática e sistemas operacionais</li>
+                <li>Edição de textos (ABNT e didáticos)</li>
+                <li>Planilhas automáticas (notas e chamadas)</li>
+                <li>Apresentações e design visual no Canva</li>
+                <li>Gestão de armazenamento em nuvem</li>
+                <li>Ferramentas gratuitas e IA para produtividade</li>
+                <li>Recursos interativos para engajamento</li>
+              </ul>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Ambiente de Aprendizagem</span>
+              <p class="item-desc">Nossa sala de aula estendida para centralização de todos os conteúdos presenciais.</p>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Atalhos Digitais</span>
+              <p class="item-desc">Pílulas de solução diretas ao ponto para facilitar a sua rotina.</p>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Socorro Digital via WhatsApp</span>
+              <ul class="sub-list">
+                <li>Seg a Sex, das 08h às 19h30</li>
+                <li>Envie dúvidas em áudio, texto ou captura da tela</li>
+              </ul>
+            </div>
+          </div>
+
+          <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=139a1c4dce964952b1cca5a86525bcac" class="btn-card" target="_blank" rel="noopener noreferrer">Assinar Plano Conexão</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-topo">
+          <p class="card-perfil">Público Educacional</p>
+          <h3 class="card-nome">Plano Premium</h3>
+          <p class="card-tagline">Terceirize parte da sua carga de trabalho e tenha apresentações, avaliações e materiais interativos criados sob medida para as suas necessidades.</p>
+          <div class="badges-container">
+            <span class="desconto-badge">Preço de Lançamento</span>
+            <span class="desconto-badge badge-escassez">Apenas 10 vagas</span>
+          </div>
+          <div class="card-preco"><span class="p-cifrao">R$</span><span class="p-valor">250</span><span class="p-per">,00/mês</span></div>
+        </div>
+        <div class="card-corpo">
+          <div class="limites-box">
+            <div class="lim"><span class="lim-val">Serviços ou Assistência</span></div>
+            <div class="lim"><span class="lim-label">Presencial</span><span class="lim-val">Quinzenal · 1h</span></div>
+          </div>
+          
+          <div class="card-itens">
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Todos os recursos do Conexão</span>
+              <ul class="sub-list">
+                <li>Aulas presenciais completas</li>
+                <li>Ambiente de Aprendizagem e Atalhos</li>
+                <li>Socorro Digital prioritário</li>
+              </ul>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Download de mídias</span>
+              <p class="item-desc">Realizamos o download de vídeos, imagens, áudios e filmes por você.</p>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Serviços sob Demanda (3 p/ mês)</span>
+              <ul class="sub-list" style="margin-bottom: 8px;">
+                <li>Slides: até 20 lâminas</li>
+                <li>Forms: até 15 questões</li>
+                <li>Gamificação: 1 atividade interativa</li>
+                <li>Demais serviços a combinar</li>
+              </ul>
+              <div class="alerta-box">
+                <span class="alerta-texto">⚠ Entregas em até 48h úteis</span>
+                <span class="alerta-texto">⚠ Pacote não cumulativo</span>
+              </div>
+            </div>
+
+            <div class="item-grupo">
+              <span class="item-titulo"><span class="check">✓</span>Assistência Remota</span>
+              <p class="item-desc">Acesso à distância de até 1h para destrave de configurações complexas no sistema.</p>
+              <div class="alerta-box">
+                <span class="alerta-texto">⚠ Consome 1 solicitação de serviço</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=93f540a8e52346aba0a64db4d082fb4d" class="btn-card" target="_blank" rel="noopener noreferrer">Assinar Plano Premium</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="secao bg-green" id="servicos-avulsos">
+  <div class="inner">
+    <p class="eyebrow" style="text-align: center; color: var(--ink);">Soluções Pontuais</p>
+    <h2 class="h2" style="text-align: center; color: var(--ink);">Serviços Avulsos</h2>
+    <p class="lead" style="margin: 0 auto 48px; text-align: center; color: var(--ink);">Disponíveis para quem não deseja assinar o Plano Premium no momento, com atendimento e orçamento sob medida.</p>
+    
+    <div class="alinha-grid serv-grid">
+      <div class="alinha-card">
+        <h4>Assistência Remota</h4>
+        <p>Suporte técnico e orientação em tempo real diretamente no seu computador.</p>
+      </div>
+      <div class="alinha-card">
+        <h4>Formatação e Limpeza</h4>
+        <p>Restauração do sistema operacional e melhoria de desempenho do computador (Atendimento local).</p>
+      </div>
+      <div class="alinha-card">
+        <h4>Organização de Computador</h4>
+        <p>Estruturação de pastas, backup de arquivos e otimização do espaço de trabalho.</p>
+      </div>
+      <div class="alinha-card">
+        <h4>Download de Mídia</h4>
+        <p>Busca e disponibilização de arquivos específicos (filmes, vídeos, músicas etc.).</p>
+      </div>
+      <div class="alinha-card">
+        <h4>Instalações e Configurações</h4>
+        <p>Instalação de programas em geral e ajuste de configurações em celulares e computadores.</p>
+      </div>
+      <div class="alinha-card">
+        <h4>Apoio e Estruturação Acadêmica</h4>
+        <p>Formatação nas normas ABNT, revisão estrutural e auxílio prático na organização de entregas e trabalhos universitários.</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;">
+      <a href="https://wa.me/5575999836362?text=Ol%C3%A1%21%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20servi%C3%A7o%20avulso%20da%20JG%20Mentoria%20Tech." class="btn-orcamento-preto" target="_blank" rel="noopener noreferrer">Solicitar Orçamento via WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="secao bg-cream" id="comparativo">
+  <div class="inner">
+    <p class="eyebrow">Visão Geral</p>
+    <h2 class="h2">O que está incluso em <em>cada plano</em></h2>
+    
+    <table class="comp-table">
+      <thead>
+        <tr class="super-header">
+          <th></th>
+          <th class="th-dominio">Público Geral</th>
+          <th class="th-glossy" colspan="2">Público Educacional</th>
+        </tr>
+        <tr>
+          <th>Recursos e Entregas</th>
+          <th class="th-dominio">Plano Domínio</th>
+          <th class="th-glossy">Plano Conexão</th>
+          <th class="th-glossy">Plano Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>
+            <strong>Encontros Presenciais Quinzenais (1h)</strong>
+            <span class="detalhe-celula">Aulas práticas em pequenos grupos focadas na resolução de dificuldades.</span>
+          </td>
+          <td class="td-dominio"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Ambiente de Aprendizagem</strong>
+            <span class="detalhe-celula">Nossa sala de aula virtual estendida centralizada no Google Classroom.</span>
+          </td>
+          <td class="td-dominio"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Atalhos Digitais</strong>
+            <span class="detalhe-celula">Pílulas de solução e conteúdos rápidos diretos ao ponto.</span>
+          </td>
+          <td class="td-dominio"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Socorro Digital via WhatsApp</strong>
+            <span class="detalhe-celula">Suporte de Seg a Sex, das 08h às 19h30 (respostas mais rápidas à tarde).</span>
+          </td>
+          <td class="td-dominio"><span class="nao">—</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Download de Mídias</strong>
+            <span class="detalhe-celula">Serviço de download de vídeos, imagens, áudios e filmes sob demanda.</span>
+          </td>
+          <td class="td-dominio"><span class="nao">—</span></td>
+          <td class="td-glossy"><span class="nao">—</span></td>
+          <td class="td-glossy"><span class="sim">✓</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Serviços sob Demanda</strong>
+            <span class="detalhe-celula" style="margin-top: 12px; text-align: left;">
+              • <strong>Slides:</strong> Limite de até 20 lâminas por solicitação.<br>
+              • <strong>Avaliações no Forms:</strong> Limite de até 15 questões com gabarito automático.<br>
+              • <strong>Gamificação:</strong> 1 atividade interativa (Wordwall, Kahoot ou similar).<br>
+              • <strong>Demais serviços:</strong> Sob consulta e combinação prévia.
+            </span>
+          </td>
+          <td class="td-dominio"><span class="nao">—</span></td>
+          <td class="td-glossy"><span class="nao">—</span></td>
+          <td class="td-glossy">
+            <span class="sim">✓</span>
+            <span class="alerta-celula">⚠ 3 solicitações/mês</span>
+            <span class="alerta-celula">⚠ Não cumulativo</span>
+            <span class="alerta-celula">⚠ Entregas em até 48h úteis</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Assistência Remota</strong>
+            <span class="detalhe-celula" style="margin-top: 8px; text-align: left;">
+              • 1 acesso de até 1h.
+            </span>
+          </td>
+          <td class="td-dominio"><span class="nao">—</span></td>
+          <td class="td-glossy"><span class="nao">—</span></td>
+          <td class="td-glossy">
+            <span class="sim">✓</span>
+            <span class="alerta-celula">⚠ Consome 1 solicitação de serviço</span>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="secao bg-green" id="instrutor">
+  <div class="inner">
+    <h2 class="h2" style="margin-bottom: 40px; color: var(--ink);">Quem estará ao seu lado?</h2>
+    
+    <div class="inst-bloco">
+      <div class="instrutor-avatar">
+        <img src="avatar.webp" alt="Foto de João Gilberto" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <h3>João Gilberto Silva Santos</h3>
+      <p class="inst-prof">Professor</p>
+      
+      <p style="color: var(--ink);">
+        Professor com mais de 10 anos de experiência prática, compreendendo a fundo os obstáculos tecnológicos diários da rotina profissional e escolar. Com foco prático e inúmeras horas em formações continuadas sobre tecnologia, ajudo assinantes a superar o receio digital e ganhar produtividade real no dia a dia, garantindo mais tempo livre para a estratégia e execução dos seus objetivos.
+      </p>
+      
+      <div class="inst-tags">
+        <span>🤝 Suporte humanizado</span>
+        <span>⚡ Foco em produtividade</span>
+        <span>🗣️ Linguagem acessível</span>
+        <span>📍 Disponibilidade local</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao bg-cream">
+  <div class="inner">
+    <p class="eyebrow" style="text-align: center;">Transparência e Regras</p>
+    <h2 class="h2" style="text-align: center;">Como funcionamos <em>na prática</em></h2>
+    
+    <div class="alinha-grid">
+      <div class="alinha-card">
+        <span class="alinha-icon">📱</span>
+        <h4>Canais de Atendimento</h4>
+        <p>Materiais estruturados e acompanhamento: <strong>Google Classroom</strong>. Suporte rápido para destravar o dia a dia nos planos Conexão e Premium: <strong>Socorro Digital via WhatsApp</strong>. Assistência técnica com controle à distância exclusiva do <strong>Plano Premium</strong>.</p>
+      </div>
+      <div class="alinha-card">
+        <span class="alinha-icon">⏰</span>
+        <h4>Horários</h4>
+        <p>O Socorro Digital e o suporte remoto operam de <strong>segunda a sexta-feira, das 08h às 19h30</strong>. Mensagens enviadas fora do horário comercial, em fins de semana ou feriados serão respondidas no próximo dia útil.</p>
+      </div>
+      <div class="alinha-card">
+        <span class="alinha-icon">⏳</span>
+        <h4>Prazos Operacionais</h4>
+        <p>Dúvidas enviadas no WhatsApp têm respostas mais ágeis no período da tarde (a partir das 13h). Serviços sob demanda da Turma Premium (limite de 3/mês) são entregues em até <strong>48h úteis</strong>. Assistência Remota agendada e realizada em até <strong>12h úteis</strong>.</p>
+      </div>
+      <div class="alinha-card">
+        <span class="alinha-icon">🛡️</span>
+        <h4>Escopo Técnico</h4>
+        <p>O foco das mentorias é o desenvolvimento da sua autonomia digital, capacitando-o para executar as suas tarefas diárias sem dependência de terceiros. Já os serviços sob demanda e avulsos funcionam como um suporte estratégico complementar, disponibilizados para agilizar a sua rotina e garantir entregas rápidas enquanto consolida essas novas habilidades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao bg-green" id="faq">
+  <div class="inner">
+    <p class="eyebrow" style="text-align: center; color: var(--ink);">Dúvidas Frequentes</p>
+    <h2 class="h2" style="text-align: center; color: var(--ink);">
+      Perguntas &<br>
+      <span style="color: #fff;">Respostas</span>
+    </h2>
+    
+    <div class="faq-box">
+      <details>
+        <summary>Sou professor, posso assinar o Plano Domínio?</summary>
+        <p>Sim, mas não é o indicado. O Plano Domínio é focado exclusivamente na alfabetização digital e nas tarefas básicas do dia a dia. Suporte para a rotina docente, formatação ABNT, planilhas de notas e orientações sobre ferramentas pedagógicas são atendidos exclusivamente nos planos Conexão e Premium.</p>
+      </details>
+
+      <details>
+        <summary>Como funcionam os serviços avulsos na prática?</summary>
+        <p>São soluções pontuais sob medida para quem não deseja manter uma assinatura mensal. Você entra em contato pelo nosso WhatsApp, explica onde precisa de auxílio (como formatação, download de mídias ou revisão acadêmica), recebe o orçamento e paga apenas pelo serviço que for realizado.</p>
+      </details>
+
+      <details>
+        <summary>A mentoria oferece algum tipo de certificado ao final?</summary>
+        <p>Não. Como os nossos planos funcionam em formato de assinatura de mentoria e suporte contínuo para resolução de problemas reais do dia a dia, não se tratam de cursos tradicionais com início, meio e fim, não havendo emissão de certificação.</p>
+      </details>
+
+      <details>
+        <summary>Como funciona o Socorro Digital na prática?</summary>
+        <p>É o nosso canal de suporte prioritário via WhatsApp. Você pode enviar a sua dúvida completa gravando a tela, mandando áudios ou textos mostrando onde travou. O atendimento funciona de segunda a sexta, das 08h às 19h30, com tempo de resposta muito mais rápido no período da tarde, a partir das 13h.</p>
+      </details>
+
+      <details>
+        <summary>Como terei acesso aos materiais de apoio?</summary>
+        <p>Toda a nossa estrutura de tutoriais, questionários diagnósticos e resumos dos encontros presenciais fica organizada dentro do Google Classroom. Assim que a assinatura é ativada, você recebe o acesso direto à nossa sala de aula virtual.</p>
+      </details>
+
+      <details>
+        <summary>Os encontros presenciais são individuais?</summary>
+        <p>Não. Os encontros presenciais quinzenais ocorrem em pequenos grupos, promovendo um ambiente colaborativo ideal para a troca de experiências e a perda do receio tecnológico em conjunto.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="ft">JG Mentoria Tech</p>
+  <p class="inst">Instrutor: João Gilberto Silva Santos</p>
+  <p style="font-size: 0.85rem;">Suporte Tecnológico Prático e Mentoria de Produtividade.<br>Atendimento exclusivo para Novo Triunfo - BA e região.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
